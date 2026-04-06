@@ -1,0 +1,21 @@
+banking-infrastructure chart deploys optional shared dependencies.
+
+Enabled in-cluster components:
+{{- if .Values.postgres.enabled }}
+- PostgreSQL
+{{- end }}
+{{- if .Values.rabbitmq.enabled }}
+- RabbitMQ
+{{- end }}
+{{- if .Values.mongodb.enabled }}
+- MongoDB
+{{- end }}
+{{- if .Values.redis.enabled }}
+- Redis
+{{- end }}
+
+External service mode flags:
+- externalServices.postgres.enabled={{ .Values.externalServices.postgres.enabled }}
+- externalServices.rabbitmq.enabled={{ .Values.externalServices.rabbitmq.enabled }}
+- externalServices.mongodb.enabled={{ .Values.externalServices.mongodb.enabled }}
+- externalServices.redis.enabled={{ .Values.externalServices.redis.enabled }}

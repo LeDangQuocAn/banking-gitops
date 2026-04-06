@@ -1,0 +1,24 @@
+apiVersion: v2
+name: banking-infrastructure
+description: Shared infrastructure dependencies for banking environments
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: postgresql
+    version: 15.5.38
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgres.enabled
+  - name: rabbitmq
+    version: 15.5.0
+    repository: https://charts.bitnami.com/bitnami
+    condition: rabbitmq.enabled
+  - name: mongodb
+    version: 16.5.17
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
+  - name: redis
+    version: 20.7.0
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled

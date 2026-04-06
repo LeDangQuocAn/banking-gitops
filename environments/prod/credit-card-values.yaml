@@ -1,0 +1,30 @@
+image:
+  repository: ghcr.io/your-org/credit-card-service
+  tag: "1.0.0"
+
+replicaCount: 2
+
+container:
+  port: 8085
+
+service:
+  port: 8085
+  targetPort: http
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: creditcard.banking.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

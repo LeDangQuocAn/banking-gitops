@@ -1,0 +1,30 @@
+image:
+  repository: ghcr.io/your-org/invoice-service
+  tag: "staging-latest"
+
+replicaCount: 1
+
+container:
+  port: 8088
+
+service:
+  port: 8088
+  targetPort: http
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: invoice.staging.banking.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

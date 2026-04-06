@@ -1,0 +1,15 @@
+dependencies:
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.5.38
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.5.0
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.5.17
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.7.0
+digest: sha256:e96b1ee099f95e8c2e4e3a5048f2f860cd8558b567710e7e7262614f92ef2325
+generated: "2026-04-06T21:03:06.166749653+07:00"

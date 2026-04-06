@@ -1,0 +1,26 @@
+postgres:
+  enabled: false
+rabbitmq:
+  enabled: false
+mongodb:
+  enabled: false
+redis:
+  enabled: false
+
+externalServices:
+  postgres:
+    enabled: true
+    host: "prod-rds.endpoint.amazonaws.com"
+    port: 5432
+    database: "banking"
+  rabbitmq:
+    enabled: true
+    host: "prod-rabbitmq.endpoint.amazonaws.com"
+    port: 5672
+  mongodb:
+    enabled: true
+    uri: "mongodb://prod-docdb.endpoint.amazonaws.com:27017/banking"
+  redis:
+    enabled: true
+    host: "prod-elasticache.endpoint.amazonaws.com"
+    port: 6379

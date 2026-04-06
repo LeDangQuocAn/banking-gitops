@@ -1,0 +1,41 @@
+postgres:
+  enabled: true
+  auth:
+    username: banking
+    database: banking
+    existingSecret: ""
+
+rabbitmq:
+  enabled: true
+  auth:
+    existingPasswordSecret: ""
+
+mongodb:
+  enabled: true
+  auth:
+    enabled: true
+    rootPassword: ""
+    existingSecret: ""
+
+redis:
+  enabled: true
+  auth:
+    enabled: false
+
+externalServices:
+  postgres:
+    enabled: false
+    host: ""
+    port: 5432
+    database: ""
+  rabbitmq:
+    enabled: false
+    host: ""
+    port: 5672
+  mongodb:
+    enabled: false
+    uri: ""
+  redis:
+    enabled: false
+    host: ""
+    port: 6379

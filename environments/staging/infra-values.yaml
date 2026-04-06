@@ -1,0 +1,26 @@
+postgres:
+  enabled: true
+rabbitmq:
+  enabled: true
+mongodb:
+  enabled: true
+redis:
+  enabled: true
+
+externalServices:
+  postgres:
+    enabled: false
+    host: ""
+    port: 5432
+    database: ""
+  rabbitmq:
+    enabled: false
+    host: ""
+    port: 5672
+  mongodb:
+    enabled: false
+    uri: ""
+  redis:
+    enabled: false
+    host: ""
+    port: 6379

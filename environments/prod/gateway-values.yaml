@@ -1,0 +1,30 @@
+image:
+  repository: ghcr.io/your-org/api-gateway-service
+  tag: "1.0.0"
+
+replicaCount: 2
+
+container:
+  port: 8087
+
+service:
+  port: 8087
+  targetPort: http
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+  hosts:
+    - host: gateway.banking.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

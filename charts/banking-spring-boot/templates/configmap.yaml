@@ -1,0 +1,16 @@
+{{- if .Values.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "banking-spring-boot.fullname" . }}
+  labels:
+    {{- include "banking-spring-boot.labels" . | nindent 4 }}
+data:
+  {{- if not .Values.configMap.data }}
+  {}
+  {{- else }}
+  {{- range $key, $value := .Values.configMap.data }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  {{- end }}
+{{- end }}
