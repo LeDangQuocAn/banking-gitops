@@ -6,33 +6,27 @@ replicaCount: 1
 
 container:
   port: 8086
+dependencies:
+  mongodb:
+    enabled: true
+    host: "TF_STAGING_DOCDB_HOST"
+    port: 27017
+    database: "banking-microservices"
+    username: "log_admin"
+    passwordSecret:
+      name: "staging-docdb-credentials"
+      key: "password"
+  rabbitmq:
+    enabled: true
+    host: "infra-staging-rabbitmq"
+    port: 5672
+    username: "user"
+    passwordSecret:
+      name: "infra-staging-rabbitmq"
+      key: "rabbitmq-password"
   env:
     - name: EUREKA_SERVER_URL
       value: http://discovery-client-staging-banking-spring-boot:8761/eureka
-    - name: MONGODB_HOST
-      value: infra-staging-mongodb
-    - name: MONGODB_PORT
-      value: "27017"
-    - name: MONGODB_DB
-      value: banking-microservices
-    - name: MONGODB_USER
-      value: root
-    - name: MONGODB_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: infra-staging-mongodb
-          key: mongodb-root-password
-    - name: RABBITMQ_HOST
-      value: infra-staging-rabbitmq
-    - name: RABBITMQ_PORT
-      value: "5672"
-    - name: RABBITMQ_USER
-      value: user
-    - name: RABBITMQ_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: infra-staging-rabbitmq
-          key: rabbitmq-password
 
 service:
   port: 8086

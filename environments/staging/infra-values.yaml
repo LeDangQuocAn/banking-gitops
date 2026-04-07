@@ -1,16 +1,16 @@
 postgres:
-  enabled: true
+  enabled: false
 rabbitmq:
   enabled: true
   image:
     repository: bitnamilegacy/rabbitmq
     tag: 3.13.2-debian-12-r0
 mongodb:
-  enabled: true
+  enabled: false
   image:
     repository: bitnamilegacy/mongodb
 redis:
-  enabled: true
+  enabled: false
   image:
     repository: bitnamilegacy/redis
 
@@ -24,26 +24,18 @@ postgresql:
 
 externalServices:
   postgres:
-    image:
-      tag: "16"
-    enabled: false
-    host: ""
+    enabled: true
+    host: "TF_STAGING_RDS_HOST"
     port: 5432
-    database: ""
+    database: "banking"
   rabbitmq:
-    image:
-      tag: "3.13"
     enabled: false
     host: ""
     port: 5672
   mongodb:
-    image:
-      tag: "7.0"
-    enabled: false
-    uri: ""
+    enabled: true
+    uri: "mongodb://TF_STAGING_DOCDB_HOST:27017/banking"
   redis:
-    image:
-      tag: "7.2"
-    enabled: false
-    host: ""
+    enabled: true
+    host: "TF_STAGING_ELASTICACHE_HOST"
     port: 6379

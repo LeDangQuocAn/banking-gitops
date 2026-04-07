@@ -7,6 +7,33 @@ replicaCount: 2
 container:
   port: 8084
 
+dependencies:
+  postgres:
+    enabled: true
+    host: "TF_PROD_RDS_HOST"
+    port: 5432
+    database: "banking"
+    username: "banking"
+    passwordSecret:
+      name: "prod-rds-credentials"
+      key: "password"
+  rabbitmq:
+    enabled: true
+    host: "infra-prod-rabbitmq"
+    port: 5672
+    username: "user"
+    passwordSecret:
+      name: "infra-prod-rabbitmq"
+      key: "rabbitmq-password"
+  redis:
+    enabled: true
+    host: "TF_PROD_ELASTICACHE_HOST"
+    port: 6379
+    database: 1
+    passwordSecret:
+      name: "prod-elasticache-credentials"
+      key: "auth_token"
+
 service:
   port: 8084
   targetPort: http

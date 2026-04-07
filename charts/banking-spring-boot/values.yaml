@@ -28,6 +28,42 @@ container:
   env: []
   envFrom: []
 
+dependencies:
+  postgres:
+    enabled: false
+    host: ""
+    port: 5432
+    database: ""
+    username: ""
+    passwordSecret:
+      name: ""
+      key: ""
+  rabbitmq:
+    enabled: false
+    host: ""
+    port: 5672
+    username: ""
+    passwordSecret:
+      name: ""
+      key: ""
+  redis:
+    enabled: false
+    host: ""
+    port: 6379
+    database: 0
+    passwordSecret:
+      name: ""
+      key: ""
+  mongodb:
+    enabled: false
+    host: ""
+    port: 27017
+    database: ""
+    username: ""
+    passwordSecret:
+      name: ""
+      key: ""
+
 service:
   type: ClusterIP
   port: 80

@@ -7,6 +7,25 @@ replicaCount: 2
 container:
   port: 8089
 
+dependencies:
+  mongodb:
+    enabled: true
+    host: "TF_PROD_DOCDB_HOST"
+    port: 27017
+    database: "banking-microservices"
+    username: "log_admin"
+    passwordSecret:
+      name: "prod-docdb-credentials"
+      key: "password"
+  rabbitmq:
+    enabled: true
+    host: "infra-prod-rabbitmq"
+    port: 5672
+    username: "user"
+    passwordSecret:
+      name: "infra-prod-rabbitmq"
+      key: "rabbitmq-password"
+
 service:
   port: 8089
   targetPort: http

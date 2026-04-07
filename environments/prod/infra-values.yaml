@@ -1,7 +1,7 @@
 postgres:
   enabled: false
 rabbitmq:
-  enabled: false
+  enabled: true
   image:
     repository: bitnamilegacy/rabbitmq
     tag: 3.13.2-debian-12-r0
@@ -25,17 +25,17 @@ postgresql:
 externalServices:
   postgres:
     enabled: true
-    host: "prod-rds.endpoint.amazonaws.com"
+    host: "TF_PROD_RDS_HOST"
     port: 5432
     database: "banking"
   rabbitmq:
-    enabled: true
-    host: "prod-rabbitmq.endpoint.amazonaws.com"
+    enabled: false
+    host: ""
     port: 5672
   mongodb:
     enabled: true
-    uri: "mongodb://prod-docdb.endpoint.amazonaws.com:27017/banking"
+    uri: "mongodb://TF_PROD_DOCDB_HOST:27017/banking"
   redis:
     enabled: true
-    host: "prod-elasticache.endpoint.amazonaws.com"
+    host: "TF_PROD_ELASTICACHE_HOST"
     port: 6379

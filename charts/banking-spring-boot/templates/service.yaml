@@ -1,3 +1,4 @@
+{{- include "banking-spring-boot.validateServiceConfig" . -}}
 apiVersion: v1
 kind: Service
 metadata:

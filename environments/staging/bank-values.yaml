@@ -6,35 +6,33 @@ replicaCount: 1
 
 container:
   port: 8082
+dependencies:
+  postgres:
+    enabled: true
+    host: "TF_STAGING_RDS_HOST"
+    port: 5432
+    database: "banking"
+    username: "banking"
+    passwordSecret:
+      name: "staging-rds-credentials"
+      key: "password"
+  rabbitmq:
+    enabled: true
+    host: "infra-staging-rabbitmq"
+    port: 5672
+    username: "user"
+    passwordSecret:
+      name: "infra-staging-rabbitmq"
+      key: "rabbitmq-password"
+  redis:
+    enabled: true
+    host: "TF_STAGING_ELASTICACHE_HOST"
+    port: 6379
+    database: 1
+    passwordSecret:
+      name: "staging-elasticache-credentials"
+      key: "auth_token"
   env:
-    - name: POSTGRES_HOST
-      value: infra-staging-postgresql
-    - name: POSTGRES_PORT
-      value: "5432"
-    - name: POSTGRES_USER
-      value: postgres
-    - name: POSTGRES_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: infra-staging-postgresql
-          key: postgres-password
-    - name: RABBITMQ_HOST
-      value: infra-staging-rabbitmq
-    - name: RABBITMQ_PORT
-      value: "5672"
-    - name: RABBITMQ_USER
-      value: user
-    - name: RABBITMQ_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: infra-staging-rabbitmq
-          key: rabbitmq-password
-    - name: REDIS_DB
-      value: "1"
-    - name: REDIS_HOST
-      value: infra-staging-redis-master
-    - name: REDIS_PORT
-      value: "6379"
     - name: EUREKA_SERVER_URL
       value: http://discovery-client-staging-banking-spring-boot:8761/eureka
 
