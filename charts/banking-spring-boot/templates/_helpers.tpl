@@ -101,3 +101,67 @@ Validate service configuration used by templates.
 {{- end }}
 {{- end }}
 
+{{/*
+Generate dependency env vars from values.dependencies.
+*/}}
+{{- define "banking-spring-boot.connectionEnv" -}}
+{{- $d := .Values.dependencies -}}
+{{- if $d.postgres.enabled }}
+- name: POSTGRES_HOST
+value: {{ $d.postgres.host | quote }}
+- name: POSTGRES_PORT
+value: {{ toString $d.postgres.port | quote }}
+- name: POSTGRES_DB
+value: {{ $d.postgres.database | quote }}
+- name: POSTGRES_USER
+value: {{ $d.postgres.username | quote }}
+- name: POSTGRES_PASSWORD
+valueFrom:
+	secretKeyRef:
+		name: {{ $d.postgres.passwordSecret.name | quote }}
+		key: {{ $d.postgres.passwordSecret.key | quote }}
+{{- end }}
+{{- if $d.rabbitmq.enabled }}
+- name: RABBITMQ_HOST
+value: {{ $d.rabbitmq.host | quote }}
+- name: RABBITMQ_PORT
+value: {{ toString $d.rabbitmq.port | quote }}
+- name: RABBITMQ_USER
+value: {{ $d.rabbitmq.username | quote }}
+- name: RABBITMQ_PASSWORD
+valueFrom:
+	secretKeyRef:
+		name: {{ $d.rabbitmq.passwordSecret.name | quote }}
+		key: {{ $d.rabbitmq.passwordSecret.key | quote }}
+{{- end }}
+{{- if $d.redis.enabled }}
+- name: REDIS_HOST
+value: {{ $d.redis.host | quote }}
+- name: REDIS_PORT
+value: {{ toString $d.redis.port | quote }}
+- name: REDIS_DB
+value: {{ toString $d.redis.database | quote }}
+{{- if $d.redis.passwordSecret.name }}
+- name: REDIS_PASSWORD
+valueFrom:
+	secretKeyRef:
+		name: {{ $d.redis.passwordSecret.name | quote }}
+		key: {{ $d.redis.passwordSecret.key | quote }}
+{{- end }}
+{{- end }}
+{{- if $d.mongodb.enabled }}
+- name: MONGODB_HOST
+value: {{ $d.mongodb.host | quote }}
+- name: MONGODB_PORT
+value: {{ toString $d.mongodb.port | quote }}
+- name: MONGODB_DB
+value: {{ $d.mongodb.database | quote }}
+- name: MONGODB_USER
+value: {{ $d.mongodb.username | quote }}
+- name: MONGODB_PASSWORD
+valueFrom:
+	secretKeyRef:
+		name: {{ $d.mongodb.passwordSecret.name | quote }}
+		key: {{ $d.mongodb.passwordSecret.key | quote }}
+{{- end }}
+{{- end }}
