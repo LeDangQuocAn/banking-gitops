@@ -2,10 +2,25 @@ postgres:
   enabled: false
 rabbitmq:
   enabled: false
+  image:
+    repository: bitnamilegacy/rabbitmq
+    tag: 3.13.2-debian-12-r0
 mongodb:
   enabled: false
+  image:
+    repository: bitnamilegacy/mongodb
 redis:
   enabled: false
+  image:
+    repository: bitnamilegacy/redis
+
+global:
+  security:
+    allowInsecureImages: true
+
+postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
 
 externalServices:
   postgres:

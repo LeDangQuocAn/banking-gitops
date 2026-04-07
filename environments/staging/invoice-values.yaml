@@ -1,14 +1,47 @@
 image:
-  repository: ghcr.io/your-org/invoice-service
-  tag: "staging-latest"
+  repository: banking-microservices-invoice-service
+  tag: "latest"
 
 replicaCount: 1
 
 container:
-  port: 8088
+  port: 8085
+  env:
+    - name: POSTGRES_HOST
+      value: infra-staging-postgresql
+    - name: POSTGRES_PORT
+      value: "5432"
+    - name: POSTGRES_USER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: infra-staging-postgresql
+          key: postgres-password
+    - name: RABBITMQ_HOST
+      value: infra-staging-rabbitmq
+    - name: RABBITMQ_PORT
+      value: "5672"
+    - name: RABBITMQ_USER
+      value: user
+    - name: RABBITMQ_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: infra-staging-rabbitmq
+          key: rabbitmq-password
+    - name: REDIS_DB
+      value: "1"
+    - name: REDIS_HOST
+      value: infra-staging-redis-master
+    - name: REDIS_PORT
+      value: "6379"
+    - name: EUREKA_SERVER_URL
+      value: http://discovery-client-staging-banking-spring-boot:8761/eureka
+    - name: USER_SERVICE_HOST
+      value: user-staging-banking-spring-boot
 
 service:
-  port: 8088
+  port: 8085
   targetPort: http
 
 ingress:
@@ -28,3 +61,35 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+probes:
+  liveness:
+    enabled: true
+    spec:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 5
+      failureThreshold: 10
+  readiness:
+    enabled: true
+    spec:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 45
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 12
+  startup:
+    enabled: true
+    spec:
+      httpGet:
+        path: /actuator/health
+        port: http
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 30

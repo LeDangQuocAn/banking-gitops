@@ -2,25 +2,48 @@ postgres:
   enabled: true
 rabbitmq:
   enabled: true
+  image:
+    repository: bitnamilegacy/rabbitmq
+    tag: 3.13.2-debian-12-r0
 mongodb:
   enabled: true
+  image:
+    repository: bitnamilegacy/mongodb
 redis:
   enabled: true
+  image:
+    repository: bitnamilegacy/redis
+
+global:
+  security:
+    allowInsecureImages: true
+
+postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
 
 externalServices:
   postgres:
+    image:
+      tag: "16"
     enabled: false
     host: ""
     port: 5432
     database: ""
   rabbitmq:
+    image:
+      tag: "3.13"
     enabled: false
     host: ""
     port: 5672
   mongodb:
+    image:
+      tag: "7.0"
     enabled: false
     uri: ""
   redis:
+    image:
+      tag: "7.2"
     enabled: false
     host: ""
     port: 6379
