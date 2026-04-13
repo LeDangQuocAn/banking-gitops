@@ -1,6 +1,6 @@
 image:
-  repository: banking-microservices-credit-card-service
-  tag: "latest"
+  repository: banking-microservices-staging-credit-card-service
+  tag: "e5c42ed238a9a37a735f0fad0975fa9cd5b351ba"
 
 replicaCount: 1
 
