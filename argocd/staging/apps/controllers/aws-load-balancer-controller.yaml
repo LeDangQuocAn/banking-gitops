@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: banking-staging-controllers-aws-load-balancer-controller
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: banking-platform
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    platform.banking.io/environment: staging
+    platform.banking.io/layer: controllers
+spec:
+  project: banking-staging
+  
+  source:
+    repoURL: https://aws.github.io/eks-charts
+    chart: aws-load-balancer-controller
+    targetRevision: 2.6.2
+    helm:
+      releaseName: aws-load-balancer-controller
+      values: |
+        clusterName: banking-staging
+        replicaCount: 1
+        serviceAccount:
+          create: false
+          name: aws-load-balancer-controller
+        enableWaf: false
+        enableWafv2: false
+        image:
+          tag: v2.6.2
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=false
+      - ServerSideApply=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Sync-wave 0: deploy controllers first, before any workloads.
+  # This annotation is used by the root app or external tooling to order syncs.
+  # NOTE: ArgoCD native sync-wave is set via Argo resource annotations at the Kind level,
+  # not in Application.metadata. For now, this is informational.
+  # Actual sync-wave control is handled by root app's child app ordering.

@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: banking-staging
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: banking-platform
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    platform.banking.io/environment: staging
+spec:
+  # Source repositories allowed for this project.
+  # Only the banking-gitops repo (for all child apps) + self-reference for root app reconfig.
+  sourceRepos:
+    - 'https://github.com/LeDangQuocAn/banking-gitops' # HTTPS principal source
+    - 'ssh://git@github.com/LeDangQuocAn/banking-gitops.git' # SSH deploy key auth path
+  
+  # Destination clusters and namespaces allowed for this project.
+  destinations:
+    # Staging cluster, banking-staging namespace for workloads.
+    - name: 'staging'
+      namespace: 'banking-staging'
+    # Staging cluster, argocd namespace for control-plane reconfig by root app.
+    - name: 'staging'
+      namespace: 'argocd'
+  
+  # Cluster names available to project. Matches cluster registration name in ArgoCD.
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  
+  # Namespace-scoped resources allowed (default whitelist; restrict if needed later).
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  
+  # Restrict deletion of resources via ArgoCD (safety guardrail).
+  # Set to true for prod; staging can use default (false) for faster iteration.
+  denyUpdatedAppStatus: false
+  
+  orphanedResources:
+    # Enable monitoring of resources created outside ArgoCD.
+    enabled: false
+    # Set to true later if you want ArgoCD to warn about orphaned resources.
+    # warn: true

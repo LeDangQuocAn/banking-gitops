@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: banking-staging-infra-placeholder
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: banking-platform
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    platform.banking.io/environment: staging
+    platform.banking.io/layer: infra
+# GIT-01 skeleton only.
+# Replace with concrete infra Application in GIT-05.
