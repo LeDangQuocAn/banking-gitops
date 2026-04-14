@@ -1,10 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: staging-infrastructure
+  name: staging-core-discovery-client
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "0"
+    platform.banking.io/layer: core
 spec:
   project: banking-staging
   destination:
@@ -13,10 +14,11 @@ spec:
   source:
     repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
     targetRevision: main
-    path: charts/banking-infrastructure
+    path: charts/banking-spring-boot
     helm:
+      releaseName: discovery-client-staging
       valueFiles:
-        - ../../environments/staging/infra-values.yaml
+        - ../../environments/staging/discovery-client-values.yaml
   syncPolicy:
     automated:
       prune: true

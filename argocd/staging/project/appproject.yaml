@@ -14,12 +14,16 @@ spec:
   sourceRepos:
     - 'https://github.com/LeDangQuocAn/banking-gitops' # HTTPS principal source
     - 'ssh://git@github.com/LeDangQuocAn/banking-gitops.git' # SSH deploy key auth path
+    - 'https://github.com/LeDangQuocAn/banking-gitops.git' # Placeholder repo path used by app manifests
   
   # Destination clusters and namespaces allowed for this project.
   destinations:
     # Staging cluster, banking-staging namespace for workloads.
     - name: 'staging'
       namespace: 'banking-staging'
+    # Staging cluster, staging namespace for workloads.
+    - server: 'https://kubernetes.default.svc'
+      namespace: 'staging'
     # Staging cluster, argocd namespace for control-plane reconfig by root app.
     - name: 'staging'
       namespace: 'argocd'

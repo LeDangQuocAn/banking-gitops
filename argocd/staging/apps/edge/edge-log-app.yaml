@@ -1,10 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: staging-infrastructure
+  name: staging-edge-log
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/sync-wave: "1"
+    platform.banking.io/layer: edge
 spec:
   project: banking-staging
   destination:
@@ -13,10 +14,11 @@ spec:
   source:
     repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
     targetRevision: main
-    path: charts/banking-infrastructure
+    path: charts/banking-spring-boot
     helm:
+      releaseName: log-staging
       valueFiles:
-        - ../../environments/staging/infra-values.yaml
+        - ../../environments/staging/log-values.yaml
   syncPolicy:
     automated:
       prune: true
