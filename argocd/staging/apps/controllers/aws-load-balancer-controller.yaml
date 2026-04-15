@@ -25,6 +25,8 @@ spec:
         serviceAccount:
           create: false
           name: aws-load-balancer-controller
+          annotations:
+            eks.amazonaws.com/role-arn: arn:aws:iam::141571819416:role/banking-microservices-staging-alb-controller-role
         enableWaf: false
         enableWafv2: false
         image:
@@ -48,4 +50,4 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
-  
+
