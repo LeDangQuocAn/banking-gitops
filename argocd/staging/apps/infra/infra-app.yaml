@@ -9,10 +9,10 @@ spec:
   project: banking-staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
+    namespace: banking-infra
   source:
     repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
-    targetRevision: main
+    targetRevision: master
     path: charts/banking-infrastructure
     helm:
       valueFiles:
