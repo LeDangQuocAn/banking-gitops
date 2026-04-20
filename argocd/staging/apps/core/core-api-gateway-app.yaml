@@ -10,10 +10,10 @@ spec:
   project: banking-staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
+    namespace: banking
   source:
     repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
-    targetRevision: main
+    targetRevision: master
     path: charts/banking-spring-boot
     helm:
       releaseName: gateway-staging

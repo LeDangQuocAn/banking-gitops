@@ -18,14 +18,14 @@ spec:
   
   # Destination clusters and namespaces allowed for this project.
   destinations:
-    # Staging cluster, banking-staging namespace for workloads.
-    - name: 'staging'
-      namespace: 'banking-staging'
-    # Staging cluster, staging namespace for workloads.
+    # Workflow namespace model: microservices in banking.
     - server: 'https://kubernetes.default.svc'
-      namespace: 'staging'
-    # Staging cluster, argocd namespace for control-plane reconfig by root app.
-    - name: 'staging'
+      namespace: 'banking'
+    # Workflow namespace model: shared infra in banking-infra.
+    - server: 'https://kubernetes.default.svc'
+      namespace: 'banking-infra'
+    # ArgoCD control-plane namespace.
+    - server: 'https://kubernetes.default.svc'
       namespace: 'argocd'
   
   # Cluster names available to project. Matches cluster registration name in ArgoCD.
