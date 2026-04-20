@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: banking-staging-root
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: banking-platform
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    platform.banking.io/environment: staging
+spec:
+  project: banking-staging
+  
+  # Recursive source discovery: point to argocd/staging directory.
+  # ArgoCD will find AppProject and all child Application manifests.
+  source:
+    repoURL: 'https://github.com/LeDangQuocAn/banking-gitops'
+    targetRevision: master
+    path: argocd/staging
+  
+  # Destination: deploy root app manifests (AppProject + child Application CRDs) to argocd namespace.
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  
+  # Automated deployment: sync on git changes, auto-prune orphaned resources, self-heal drift.
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      # Create namespace if it does not exist (argocd should already exist, but safe to include).
+      - CreateNamespace=false
+      # Use server-side apply for better conflict handling with multiple controllers.
+      - ServerSideApply=true
+    # Optional: retry logic for flaky syncs.
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # Informational: ignore differences in fields that are frequently managed externally.
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas

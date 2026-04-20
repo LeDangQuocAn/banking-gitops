@@ -104,6 +104,17 @@ secret:
   existingSecret: ""
   stringData: {}
 
+externalSecret:
+  enabled: false
+  secretStoreRef:
+    name: "vault-backend"
+    kind: "ClusterSecretStore"
+  data: []
+    # - secretKey: "password"
+    #   remoteRef:
+    #     key: "secret/data/my-service"
+    #     property: "password"
+
 probes:
   liveness:
     enabled: true

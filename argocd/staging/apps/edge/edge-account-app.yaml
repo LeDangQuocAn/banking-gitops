@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-edge-account
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    platform.banking.io/layer: edge
+spec:
+  project: banking-staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  source:
+    repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+    targetRevision: main
+    path: charts/banking-spring-boot
+    helm:
+      releaseName: account-staging
+      valueFiles:
+        - ../../environments/staging/account-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

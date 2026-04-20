@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-core-discovery-client
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    platform.banking.io/layer: core
+spec:
+  project: banking-staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  source:
+    repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+    targetRevision: main
+    path: charts/banking-spring-boot
+    helm:
+      releaseName: discovery-client-staging
+      valueFiles:
+        - ../../environments/staging/discovery-client-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

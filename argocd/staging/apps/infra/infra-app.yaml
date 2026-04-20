@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-infrastructure
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: banking-staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  source:
+    repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+    targetRevision: main
+    path: charts/banking-infrastructure
+    helm:
+      valueFiles:
+        - ../../environments/staging/infra-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
