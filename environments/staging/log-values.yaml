@@ -1,6 +1,6 @@
 image:
   repository: banking-microservices-staging-log-service
-  tag: "86a1979aaa676757e129f4f4b574a4b6f828f2a6"
+  tag: "3d971c149dd864f819da4510c34f3c3ad251ea48"
 
 replicaCount: 1
 
