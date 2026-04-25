@@ -1,6 +1,6 @@
 image:
   repository: banking-microservices-staging-account-service
-  tag: "3f661fd295bdf8be46f84d26b9c16ee8fe87e1e4"
+  tag: "8f2e6798be2569d6d0182010cc6295768584f30c"
 
 replicaCount: 1
 
