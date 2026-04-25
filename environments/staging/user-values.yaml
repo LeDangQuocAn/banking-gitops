@@ -1,6 +1,6 @@
 image:
   repository: banking-microservices-staging-user-service
-  tag: "8f2e6798be2569d6d0182010cc6295768584f30c"
+  tag: "5b7a4625b8259e818a96c2e2cc18afaf7b1dad8d"
 
 replicaCount: 1
 
