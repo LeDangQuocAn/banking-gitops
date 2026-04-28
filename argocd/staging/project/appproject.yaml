@@ -15,6 +15,8 @@ spec:
     - 'https://github.com/LeDangQuocAn/banking-gitops' # HTTPS principal source
     - 'ssh://git@github.com/LeDangQuocAn/banking-gitops.git' # SSH deploy key auth path
     - 'https://github.com/LeDangQuocAn/banking-gitops.git' # Placeholder repo path used by app manifests
+    - 'https://prometheus-community.github.io/helm-charts'
+    - 'https://grafana.github.io/helm-charts'
   
   # Destination clusters and namespaces allowed for this project.
   destinations:
@@ -24,6 +26,9 @@ spec:
     # Workflow namespace model: shared infra in banking-infra.
     - server: 'https://kubernetes.default.svc'
       namespace: 'banking-infra'
+    # Observability namespace for Prometheus/Grafana/Loki
+    - server: 'https://kubernetes.default.svc'
+      namespace: 'monitoring'
     # ArgoCD control-plane namespace.
     - server: 'https://kubernetes.default.svc'
       namespace: 'argocd'

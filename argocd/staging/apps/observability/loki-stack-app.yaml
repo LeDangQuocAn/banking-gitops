@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-observability-loki
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+    platform.banking.io/layer: observability
+spec:
+  project: banking-staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: loki-stack
+      targetRevision: "2.10.1"
+      helm:
+        valueFiles:
+          - $values/environments/staging/loki-values.yaml
+    - repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+      targetRevision: master
+      path: environments/staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
