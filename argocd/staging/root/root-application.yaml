@@ -9,7 +9,9 @@ metadata:
   annotations:
     platform.banking.io/environment: staging
 spec:
-  project: banking-staging
+  # Bootstrap with the default project so ArgoCD can load the AppProject
+  # from the same app-of-apps tree before switching child apps over to it.
+  project: default
   
   # Recursive source discovery: point to argocd/staging directory.
   # ArgoCD will find AppProject and all child Application manifests.
