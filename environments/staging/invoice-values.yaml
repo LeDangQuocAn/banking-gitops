@@ -1,6 +1,6 @@
 image:
   repository: banking-microservices-staging-invoice-service
-  tag: "73f7b3d93bd2d3a0c54c5b9304f042072d960918"
+  tag: "83e22d7f5b598dbc343733361e0762b66e0584de"
 
 replicaCount: 1
 
