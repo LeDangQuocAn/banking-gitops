@@ -19,6 +19,8 @@ spec:
     repoURL: 'https://github.com/LeDangQuocAn/banking-gitops'
     targetRevision: master
     path: argocd/staging
+    directory:
+      recurse: true
   
   # Destination: deploy root app manifests (AppProject + child Application CRDs) to argocd namespace.
   destination:
