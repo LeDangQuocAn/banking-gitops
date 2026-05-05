@@ -1,0 +1,22 @@
+prometheus:
+  prometheusSpec:
+    # Use ephemeral storage for staging (emptyDir)
+    storageSpec:
+      emptyDir: {}
+
+alertmanager:
+  alertmanagerSpec:
+    # Use ephemeral storage for staging (emptyDir)
+    storage:
+      emptyDir: {}
+
+grafana:
+  persistence:
+    enabled: false
+  # Provision Loki as a datasource automatically
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki-stack.monitoring.svc.cluster.local:3100
+      access: proxy
+      isDefault: false
