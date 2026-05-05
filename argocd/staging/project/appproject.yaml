@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/managed-by: argocd
   annotations:
     platform.banking.io/environment: staging
+    argocd.argoproj.io/sync-wave: "-10"
 spec:
   # Source repositories allowed for this project.
   # Only the banking-gitops repo (for all child apps) + self-reference for root app reconfig.
