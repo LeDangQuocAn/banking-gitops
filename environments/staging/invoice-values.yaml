@@ -1,6 +1,6 @@
 image:
   repository: 141571819416.dkr.ecr.ap-southeast-1.amazonaws.com/banking-microservices-staging-invoice-service
-  tag: "ce845e23b912d56571b41432178af2ddd2d6f26c"
+  tag: "8debcdc4e210d86b93849f30e18483c38b5ff2ee"
 
 replicaCount: 1
 
