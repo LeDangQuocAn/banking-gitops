@@ -1,6 +1,6 @@
 image:
   repository: banking-microservices-staging-discovery-client-service
-  tag: "83e22d7f5b598dbc343733361e0762b66e0584de"
+  tag: "a879e789ca86f67f9640c62da7bf0ad5e7db0844"
 
 replicaCount: 1
 
