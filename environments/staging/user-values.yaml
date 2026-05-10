@@ -1,6 +1,6 @@
 image:
   repository: 141571819416.dkr.ecr.ap-southeast-1.amazonaws.com/banking-microservices-staging-user-service
-  tag: "8debcdc4e210d86b93849f30e18483c38b5ff2ee"
+  tag: "52742a740abc60438d0320bc99398aa5a39a1dca"
 
 replicaCount: 1
 
