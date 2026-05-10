@@ -9,10 +9,13 @@ container:
 dependencies:
   postgres:
     enabled: true
-    host: "TF_STAGING_RDS_HOST"
+    host: ""
     port: 5432
     database: "banking"
     username: "banking"
+    hostSecretRef:
+      name: "staging-rds-credentials"
+      key: "host"
     passwordSecret:
       name: "staging-rds-credentials"
       key: "password"
@@ -26,9 +29,12 @@ dependencies:
       key: "rabbitmq-password"
   redis:
     enabled: true
-    host: "TF_STAGING_ELASTICACHE_HOST"
+    host: ""
     port: 6379
     database: 1
+    hostSecretRef:
+      name: "staging-elasticache-credentials"
+      key: "host"
     passwordSecret:
       name: "staging-elasticache-credentials"
       key: "auth_token"

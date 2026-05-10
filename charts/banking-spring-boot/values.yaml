@@ -35,6 +35,9 @@ dependencies:
     port: 5432
     database: ""
     username: ""
+    hostSecretRef:
+      name: ""
+      key: "host"
     passwordSecret:
       name: ""
       key: ""
@@ -51,6 +54,9 @@ dependencies:
     host: ""
     port: 6379
     database: 0
+    hostSecretRef:
+      name: ""
+      key: "host"
     passwordSecret:
       name: ""
       key: ""
@@ -60,6 +66,9 @@ dependencies:
     port: 27017
     database: ""
     username: ""
+    hostSecretRef:
+      name: ""
+      key: "host"
     passwordSecret:
       name: ""
       key: ""

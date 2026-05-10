@@ -25,17 +25,26 @@ postgresql:
 externalServices:
   postgres:
     enabled: true
-    host: "TF_STAGING_RDS_HOST"
+    host: ""
     port: 5432
     database: "banking"
+    hostSecretRef:
+      name: "staging-rds-credentials"
+      key: "host"
   rabbitmq:
     enabled: false
     host: ""
     port: 5672
   mongodb:
     enabled: true
-    uri: "mongodb://TF_STAGING_DOCDB_HOST:27017/banking"
+    uri: ""
+    hostSecretRef:
+      name: "staging-docdb-credentials"
+      key: "host"
   redis:
     enabled: true
-    host: "TF_STAGING_ELASTICACHE_HOST"
+    host: ""
     port: 6379
+    hostSecretRef:
+      name: "staging-elasticache-credentials"
+      key: "host"

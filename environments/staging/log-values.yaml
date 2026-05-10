@@ -9,10 +9,13 @@ container:
 dependencies:
   mongodb:
     enabled: true
-    host: "TF_STAGING_DOCDB_HOST"
+    host: ""
     port: 27017
     database: "banking-microservices"
-    username: "log_admin"
+    username: "docdbadmin"
+    hostSecretRef:
+      name: "staging-docdb-credentials"
+      key: "host"
     passwordSecret:
       name: "staging-docdb-credentials"
       key: "password"

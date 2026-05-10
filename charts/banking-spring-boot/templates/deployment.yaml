@@ -63,7 +63,14 @@ spec:
           env:
             {{- if $d.postgres.enabled }}
             - name: POSTGRES_HOST
+              {{- if $d.postgres.hostSecretRef.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $d.postgres.hostSecretRef.name | quote }}
+                  key: {{ $d.postgres.hostSecretRef.key | quote }}
+              {{- else }}
               value: {{ $d.postgres.host | quote }}
+              {{- end }}
             - name: POSTGRES_PORT
               value: {{ toString $d.postgres.port | quote }}
             - name: POSTGRES_DB
@@ -91,7 +98,14 @@ spec:
             {{- end }}
             {{- if $d.redis.enabled }}
             - name: REDIS_HOST
+              {{- if $d.redis.hostSecretRef.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $d.redis.hostSecretRef.name | quote }}
+                  key: {{ $d.redis.hostSecretRef.key | quote }}
+              {{- else }}
               value: {{ $d.redis.host | quote }}
+              {{- end }}
             - name: REDIS_PORT
               value: {{ toString $d.redis.port | quote }}
             - name: REDIS_DB
@@ -106,7 +120,14 @@ spec:
             {{- end }}
             {{- if $d.mongodb.enabled }}
             - name: MONGODB_HOST
+              {{- if $d.mongodb.hostSecretRef.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $d.mongodb.hostSecretRef.name | quote }}
+                  key: {{ $d.mongodb.hostSecretRef.key | quote }}
+              {{- else }}
               value: {{ $d.mongodb.host | quote }}
+              {{- end }}
             - name: MONGODB_PORT
               value: {{ toString $d.mongodb.port | quote }}
             - name: MONGODB_DB

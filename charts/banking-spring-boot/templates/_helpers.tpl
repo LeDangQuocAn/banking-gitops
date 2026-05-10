@@ -67,7 +67,7 @@ Validate required connection settings when a dependency is enabled.
 {{- define "banking-spring-boot.validateDependencyConfig" -}}
 {{- $d := .Values.dependencies -}}
 {{- if $d.postgres.enabled }}
-{{- if not $d.postgres.host }}{{ fail "dependencies.postgres.host is required when dependencies.postgres.enabled=true" }}{{ end }}
+{{- if and (not $d.postgres.host) (not $d.postgres.hostSecretRef.name) }}{{ fail "dependencies.postgres.host or dependencies.postgres.hostSecretRef.name is required when dependencies.postgres.enabled=true" }}{{ end }}
 {{- if not $d.postgres.database }}{{ fail "dependencies.postgres.database is required when dependencies.postgres.enabled=true" }}{{ end }}
 {{- if not $d.postgres.username }}{{ fail "dependencies.postgres.username is required when dependencies.postgres.enabled=true" }}{{ end }}
 {{- if not $d.postgres.passwordSecret.name }}{{ fail "dependencies.postgres.passwordSecret.name is required when dependencies.postgres.enabled=true" }}{{ end }}
@@ -80,10 +80,10 @@ Validate required connection settings when a dependency is enabled.
 {{- if not $d.rabbitmq.passwordSecret.key }}{{ fail "dependencies.rabbitmq.passwordSecret.key is required when dependencies.rabbitmq.enabled=true" }}{{ end }}
 {{- end }}
 {{- if $d.redis.enabled }}
-{{- if not $d.redis.host }}{{ fail "dependencies.redis.host is required when dependencies.redis.enabled=true" }}{{ end }}
+{{- if and (not $d.redis.host) (not $d.redis.hostSecretRef.name) }}{{ fail "dependencies.redis.host or dependencies.redis.hostSecretRef.name is required when dependencies.redis.enabled=true" }}{{ end }}
 {{- end }}
 {{- if $d.mongodb.enabled }}
-{{- if not $d.mongodb.host }}{{ fail "dependencies.mongodb.host is required when dependencies.mongodb.enabled=true" }}{{ end }}
+{{- if and (not $d.mongodb.host) (not $d.mongodb.hostSecretRef.name) }}{{ fail "dependencies.mongodb.host or dependencies.mongodb.hostSecretRef.name is required when dependencies.mongodb.enabled=true" }}{{ end }}
 {{- if not $d.mongodb.database }}{{ fail "dependencies.mongodb.database is required when dependencies.mongodb.enabled=true" }}{{ end }}
 {{- if not $d.mongodb.username }}{{ fail "dependencies.mongodb.username is required when dependencies.mongodb.enabled=true" }}{{ end }}
 {{- if not $d.mongodb.passwordSecret.name }}{{ fail "dependencies.mongodb.passwordSecret.name is required when dependencies.mongodb.enabled=true" }}{{ end }}
