@@ -44,12 +44,3 @@ spec:
     - group: '*'
       kind: '*'
   
-  # Restrict deletion of resources via ArgoCD (safety guardrail).
-  # Set to true for prod; staging can use default (false) for faster iteration.
-  denyUpdatedAppStatus: false
-  
-  orphanedResources:
-    # Enable monitoring of resources created outside ArgoCD.
-    enabled: false
-    # Set to true later if you want ArgoCD to warn about orphaned resources.
-    # warn: true
