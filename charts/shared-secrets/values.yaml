@@ -1,8 +1,7 @@
-# Shared ExternalSecrets for Banking Platform - Staging Environment
 namespace: banking
 
 clusterSecretStore:
-  enabled: true
+  enabled: false
   name: vault-backend
   vault:
     server: http://vault.vault.svc.cluster.local:8200
@@ -16,31 +15,22 @@ clusterSecretStore:
         namespace: external-secrets
 
 externalSecrets:
-  # Secret store reference - points to the Vault backend
   secretStore:
     name: vault-backend
     kind: ClusterSecretStore
-  
-  # Refresh interval for syncing secrets from Vault
   refreshInterval: 1h
-  
-  # RDS Credentials
   rdsCredentials:
-    enabled: true
+    enabled: false
     name: staging-rds-external-secret
     targetName: staging-rds-credentials
     vaultPath: banking/rds
-  
-  # ElastiCache (Redis) Credentials
   elasticacheCredentials:
-    enabled: true
+    enabled: false
     name: staging-elasticache-external-secret
     targetName: staging-elasticache-credentials
     vaultPath: banking/redis
-  
-  # RabbitMQ Credentials
   rabbitmqCredentials:
-    enabled: true
+    enabled: false
     name: staging-rabbitmq-external-secret
     targetName: infra-staging-rabbitmq
     vaultPath: banking/rabbitmq
