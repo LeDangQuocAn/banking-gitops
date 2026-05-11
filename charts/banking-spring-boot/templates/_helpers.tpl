@@ -68,7 +68,7 @@ Validate required connection settings when a dependency is enabled.
 {{- $d := .Values.dependencies -}}
 {{- if $d.postgres.enabled }}
 {{- if and (not $d.postgres.host) (not $d.postgres.hostSecretRef.name) }}{{ fail "dependencies.postgres.host or dependencies.postgres.hostSecretRef.name is required when dependencies.postgres.enabled=true" }}{{ end }}
-{{- if not $d.postgres.database }}{{ fail "dependencies.postgres.database is required when dependencies.postgres.enabled=true" }}{{ end }}
+{{- if and (not $d.postgres.database) (not $d.postgres.databaseSecretRef.name) }}{{ fail "dependencies.postgres.database or dependencies.postgres.databaseSecretRef.name is required when dependencies.postgres.enabled=true" }}{{ end }}
 {{- if not $d.postgres.username }}{{ fail "dependencies.postgres.username is required when dependencies.postgres.enabled=true" }}{{ end }}
 {{- if not $d.postgres.passwordSecret.name }}{{ fail "dependencies.postgres.passwordSecret.name is required when dependencies.postgres.enabled=true" }}{{ end }}
 {{- if not $d.postgres.passwordSecret.key }}{{ fail "dependencies.postgres.passwordSecret.key is required when dependencies.postgres.enabled=true" }}{{ end }}
@@ -112,7 +112,14 @@ value: {{ $d.postgres.host | quote }}
 - name: POSTGRES_PORT
 value: {{ toString $d.postgres.port | quote }}
 - name: POSTGRES_DB
+{{- if $d.postgres.databaseSecretRef.name }}
+valueFrom:
+	secretKeyRef:
+		name: {{ $d.postgres.databaseSecretRef.name | quote }}
+		key: {{ $d.postgres.databaseSecretRef.key | default "dbname" | quote }}
+{{- else }}
 value: {{ $d.postgres.database | quote }}
+{{- end }}
 - name: POSTGRES_USER
 value: {{ $d.postgres.username | quote }}
 - name: POSTGRES_PASSWORD

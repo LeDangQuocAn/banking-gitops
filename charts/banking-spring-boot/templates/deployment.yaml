@@ -74,7 +74,14 @@ spec:
             - name: POSTGRES_PORT
               value: {{ toString $d.postgres.port | quote }}
             - name: POSTGRES_DB
+              {{- if $d.postgres.databaseSecretRef.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $d.postgres.databaseSecretRef.name | quote }}
+                  key: {{ $d.postgres.databaseSecretRef.key | default "dbname" | quote }}
+              {{- else }}
               value: {{ $d.postgres.database | quote }}
+              {{- end }}
             - name: POSTGRES_USER
               value: {{ $d.postgres.username | quote }}
             - name: POSTGRES_PASSWORD

@@ -34,6 +34,9 @@ dependencies:
     host: ""
     port: 5432
     database: ""
+    databaseSecretRef:
+      name: ""
+      key: "dbname"
     username: ""
     hostSecretRef:
       name: ""
