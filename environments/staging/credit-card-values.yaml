@@ -12,7 +12,7 @@ dependencies:
     host: ""
     port: 5432
     database: "banking"
-    username: "banking"
+    username: "bankingadmin"
     hostSecretRef:
       name: "staging-rds-credentials"
       key: "host"
