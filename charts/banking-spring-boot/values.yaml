@@ -68,6 +68,9 @@ dependencies:
     host: ""
     port: 27017
     database: ""
+    databaseSecretRef:
+      name: ""
+      key: "dbname"
     username: ""
     hostSecretRef:
       name: ""

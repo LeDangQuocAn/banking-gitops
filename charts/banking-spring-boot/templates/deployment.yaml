@@ -138,7 +138,14 @@ spec:
             - name: MONGODB_PORT
               value: {{ toString $d.mongodb.port | quote }}
             - name: MONGODB_DB
+              {{- if $d.mongodb.databaseSecretRef.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $d.mongodb.databaseSecretRef.name | quote }}
+                  key: {{ $d.mongodb.databaseSecretRef.key | default "dbname" | quote }}
+              {{- else }}
               value: {{ $d.mongodb.database | quote }}
+              {{- end }}
             - name: MONGODB_USER
               value: {{ $d.mongodb.username | quote }}
             - name: MONGODB_PASSWORD

@@ -84,7 +84,7 @@ Validate required connection settings when a dependency is enabled.
 {{- end }}
 {{- if $d.mongodb.enabled }}
 {{- if and (not $d.mongodb.host) (not $d.mongodb.hostSecretRef.name) }}{{ fail "dependencies.mongodb.host or dependencies.mongodb.hostSecretRef.name is required when dependencies.mongodb.enabled=true" }}{{ end }}
-{{- if not $d.mongodb.database }}{{ fail "dependencies.mongodb.database is required when dependencies.mongodb.enabled=true" }}{{ end }}
+{{- if and (not $d.mongodb.database) (not $d.mongodb.databaseSecretRef.name) }}{{ fail "dependencies.mongodb.database or dependencies.mongodb.databaseSecretRef.name is required when dependencies.mongodb.enabled=true" }}{{ end }}
 {{- if not $d.mongodb.username }}{{ fail "dependencies.mongodb.username is required when dependencies.mongodb.enabled=true" }}{{ end }}
 {{- if not $d.mongodb.passwordSecret.name }}{{ fail "dependencies.mongodb.passwordSecret.name is required when dependencies.mongodb.enabled=true" }}{{ end }}
 {{- if not $d.mongodb.passwordSecret.key }}{{ fail "dependencies.mongodb.passwordSecret.key is required when dependencies.mongodb.enabled=true" }}{{ end }}
@@ -162,7 +162,14 @@ value: {{ $d.mongodb.host | quote }}
 - name: MONGODB_PORT
 value: {{ toString $d.mongodb.port | quote }}
 - name: MONGODB_DB
+{{- if $d.mongodb.databaseSecretRef.name }}
+valueFrom:
+	secretKeyRef:
+		name: {{ $d.mongodb.databaseSecretRef.name | quote }}
+		key: {{ $d.mongodb.databaseSecretRef.key | default "dbname" | quote }}
+{{- else }}
 value: {{ $d.mongodb.database | quote }}
+{{- end }}
 - name: MONGODB_USER
 value: {{ $d.mongodb.username | quote }}
 - name: MONGODB_PASSWORD
