@@ -12,7 +12,7 @@ service:
   targetPort: http
 
 ingress:
-  enabled: true
+  enabled: false
   className: nginx
   annotations: {}
   hosts:
