@@ -6,7 +6,7 @@ rabbitmq:
     repository: bitnamilegacy/rabbitmq
     tag: 3.13.2-debian-12-r0
   persistence:
-    storageClass: ebs-sc
+    storageClass: gp2
 mongodb:
   enabled: false
   image:
