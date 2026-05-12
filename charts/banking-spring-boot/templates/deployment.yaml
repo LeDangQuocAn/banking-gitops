@@ -59,7 +59,7 @@ spec:
           startupProbe:
             {{- toYaml .Values.probes.startup.spec | nindent 12 }}
           {{- end }}
-          {{- if or $d.postgres.enabled $d.rabbitmq.enabled $d.redis.enabled $d.mongodb.enabled .Values.container.env }}
+          {{- if or $d.postgres.enabled $d.rabbitmq.enabled $d.redis.enabled $d.mongodb.enabled $d.env .Values.container.env }}
           env:
             {{- if $d.postgres.enabled }}
             - name: POSTGRES_HOST
@@ -153,6 +153,9 @@ spec:
                 secretKeyRef:
                   name: {{ $d.mongodb.passwordSecret.name | quote }}
                   key: {{ $d.mongodb.passwordSecret.key | quote }}
+            {{- end }}
+            {{- with $d.env }}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
             {{- with .Values.container.env }}
             {{- toYaml . | nindent 12 }}
