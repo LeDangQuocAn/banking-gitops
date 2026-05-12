@@ -8,7 +8,7 @@ postgres:
 rabbitmq:
   enabled: true
   auth:
-    existingPasswordSecret: ""
+    existingPasswordSecret: infra-staging-rabbitmq
 
 mongodb:
   enabled: true

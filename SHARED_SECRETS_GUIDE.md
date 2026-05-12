@@ -27,7 +27,7 @@ This solution provisions shared `ExternalSecret` resources that pull credentials
 ### 3. **infra-staging-rabbitmq**
 - **Vault Path**: `banking/rabbitmq`
 - **Fields**: username, password, host, port
-- **Used By**: Event-driven services (invoice-service, log-service)
+- **Used By**: Event-driven services (invoice-service, log-service) and the RabbitMQ broker in `banking-infra`
 
 ## Deployment Workflow
 
@@ -35,6 +35,8 @@ This solution provisions shared `ExternalSecret` resources that pull credentials
 2. **Sync-Wave**: Set to `-1` to ensure shared secrets deploy **before** all other apps
 3. **Sync**: ArgoCD applies the Helm chart, which renders ExternalSecret manifests
 4. **Vault Sync**: External Secrets Operator watches the ClusterSecretStore and syncs Vault secrets to K8s Secrets
+
+RabbitMQ credentials are rendered into both `banking` and `banking-infra` so the Spring Boot apps and the Bitnami RabbitMQ release consume the same Vault-backed password.
 
 ## Mounting Secrets in Pods
 
