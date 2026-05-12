@@ -24,7 +24,7 @@ dependencies:
       key: "password"
   rabbitmq:
     enabled: true
-    host: "infra-staging-rabbitmq.banking-infra.svc.cluster.local"
+    host: "staging-infrastructure-rabbitmq.banking-infra.svc.cluster.local"
     port: 5672
     username: "user"
     passwordSecret:
