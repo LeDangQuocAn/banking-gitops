@@ -43,9 +43,9 @@ dependencies:
       key: "auth_token"
   env:
     - name: EUREKA_SERVER_URL
-      value: http://172.20.105.215:8761/eureka
+      value: http://discovery-client-staging-banking-spring-boot.banking.svc.cluster.local:8761/eureka
     - name: EUREKA_HOST
-      value: "172.20.105.215"
+      value: "discovery-client-staging-banking-spring-boot.banking.svc.cluster.local"
     - name: EUREKA_PORT
       value: "8761"
 
