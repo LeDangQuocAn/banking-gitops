@@ -28,6 +28,7 @@ externalSecrets:
     enabled: false
     name: staging-elasticache-external-secret
     targetName: staging-elasticache-credentials
+    authToken: ""
     vaultPath: banking/redis
   rabbitmqCredentials:
     enabled: false
