@@ -82,27 +82,27 @@ probes:
       httpGet:
         path: /actuator/health/liveness
         port: http
-      initialDelaySeconds: 90
+      initialDelaySeconds: 180
       periodSeconds: 15
       timeoutSeconds: 5
-      failureThreshold: 10
+      failureThreshold: 3
   readiness:
     enabled: true
     spec:
       httpGet:
         path: /actuator/health/readiness
         port: http
-      initialDelaySeconds: 45
+      initialDelaySeconds: 180
       periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 12
+      failureThreshold: 3
   startup:
     enabled: true
     spec:
       httpGet:
         path: /actuator/health
         port: http
-      initialDelaySeconds: 20
+      initialDelaySeconds: 30
       periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 30
+      failureThreshold: 24
