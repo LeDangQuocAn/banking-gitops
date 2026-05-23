@@ -20,7 +20,7 @@ spec:
           - $values/environments/staging/prometheus-values.yaml
     - repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
       targetRevision: master
-      path: environments/staging
+      ref: values
   syncPolicy:
     automated:
       prune: true
