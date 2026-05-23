@@ -123,6 +123,11 @@ spec:
                 secretKeyRef:
                   name: {{ $d.redis.passwordSecret.name | quote }}
                   key: {{ $d.redis.passwordSecret.key | quote }}
+            - name: SPRING_DATA_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $d.redis.passwordSecret.name | quote }}
+                  key: {{ $d.redis.passwordSecret.key | quote }}
             {{- end }}
             - name: SPRING_DATA_REDIS_SSL_ENABLED
               value: "true"
