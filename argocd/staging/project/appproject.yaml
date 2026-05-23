@@ -30,6 +30,9 @@ spec:
     # Observability namespace for Prometheus/Grafana/Loki
     - server: 'https://kubernetes.default.svc'
       namespace: 'monitoring'
+    # Kubernetes control-plane namespace used by kube-prometheus-stack service monitors.
+    - server: 'https://kubernetes.default.svc'
+      namespace: 'kube-system'
     # ArgoCD control-plane namespace.
     - server: 'https://kubernetes.default.svc'
       namespace: 'argocd'
