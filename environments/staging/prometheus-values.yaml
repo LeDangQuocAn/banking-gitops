@@ -13,6 +13,9 @@ alertmanager:
 grafana:
   persistence:
     enabled: false
+  sidecar:
+    dashboards:
+      enabled: false
   # Provision Loki as a datasource automatically
   additionalDataSources:
     - name: Loki
