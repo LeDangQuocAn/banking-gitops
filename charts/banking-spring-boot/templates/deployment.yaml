@@ -160,6 +160,8 @@ spec:
                 secretKeyRef:
                   name: {{ $d.mongodb.passwordSecret.name | quote }}
                   key: {{ $d.mongodb.passwordSecret.key | quote }}
+            - name: SPRING_DATA_MONGODB_SSL_ENABLED
+              value: "true"
             {{- end }}
             {{- with $d.env }}
             {{- toYaml . | nindent 12 }}
