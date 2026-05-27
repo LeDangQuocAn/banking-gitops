@@ -13,6 +13,8 @@ alertmanager:
 grafana:
   persistence:
     enabled: false
+  datasources:
+    url: http://staging-observability-prom-prometheus.monitoring.svc.cluster.local:9090/
   sidecar:
     dashboards:
       enabled: true
@@ -20,11 +22,6 @@ grafana:
       labelValue: "1"
   # Provision Prometheus and Loki as datasources automatically
   additionalDataSources:
-    - name: Prometheus
-      type: prometheus
-      url: http://staging-observability-prom-prometheus.monitoring.svc.cluster.local:9090
-      access: proxy
-      isDefault: true
     - name: Loki
       type: loki
       url: http://loki-stack.monitoring.svc.cluster.local:3100
