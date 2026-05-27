@@ -15,7 +15,9 @@ grafana:
     enabled: false
   sidecar:
     dashboards:
-      enabled: false
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
   # Provision Loki as a datasource automatically
   additionalDataSources:
     - name: Loki

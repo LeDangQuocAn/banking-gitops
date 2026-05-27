@@ -21,6 +21,9 @@ spec:
     - repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
       targetRevision: master
       ref: values
+    - repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+      targetRevision: master
+      path: environments/staging/dashboards
   syncPolicy:
     automated:
       prune: true
