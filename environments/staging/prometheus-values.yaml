@@ -13,9 +13,6 @@ alertmanager:
 grafana:
   persistence:
     enabled: false
-  # 1. CRITICAL: Disable the main chart's built-in automatic Prometheus datasource
-  defaultDatasourceEnabled: false
-  forceDeployDatasources: true
 
   sidecar:
     dashboards:
@@ -23,20 +20,20 @@ grafana:
       label: grafana_dashboard
       labelValue: "1"
     datasources:
-      enabled: false
+      enabled: true
+      # EXACT correct path to disable the chart's built-in Prometheus
       defaultDatasourceEnabled: false
 
-  # 2. Explicitly provision BOTH datasources so there is zero ambiguity
   additionalDataSources:
-    - name: Loki
-      type: loki
-      uid: loki
-      url: http://loki-stack.monitoring.svc.cluster.local:3100
-      access: proxy
-      isDefault: false
     - name: Prometheus
       type: prometheus
       uid: prometheus
       url: http://staging-observability-prom-prometheus.monitoring.svc.cluster.local:9090
       access: proxy
       isDefault: true
+    - name: Loki
+      type: loki
+      uid: loki
+      url: http://loki-stack.monitoring.svc.cluster.local:3100
+      access: proxy
+      isDefault: false
