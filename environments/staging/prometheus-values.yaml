@@ -13,8 +13,6 @@ alertmanager:
 grafana:
   persistence:
     enabled: false
-  datasources:
-    url: http://staging-observability-prom-prometheus.monitoring.svc.cluster.local:9090/
   sidecar:
     dashboards:
       enabled: true
