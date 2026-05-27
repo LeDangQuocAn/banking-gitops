@@ -18,8 +18,13 @@ grafana:
       enabled: true
       label: grafana_dashboard
       labelValue: "1"
-  # Provision Loki as a datasource automatically
+  # Provision Prometheus and Loki as datasources automatically
   additionalDataSources:
+    - name: Prometheus
+      type: prometheus
+      url: http://staging-observability-prom-prometheus.monitoring.svc.cluster.local:9090
+      access: proxy
+      isDefault: true
     - name: Loki
       type: loki
       url: http://loki-stack.monitoring.svc.cluster.local:3100
