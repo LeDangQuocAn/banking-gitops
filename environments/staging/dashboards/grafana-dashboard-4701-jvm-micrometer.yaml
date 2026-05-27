@@ -5,8 +5,8 @@ metadata:
   namespace: monitoring
   labels:
     grafana_dashboard: "1"
-    app.kubernetes.io/name: grafana-dashboard
-    app.kubernetes.io/part-of: banking-observability
+    app.kubernetes.io/name: "grafana-dashboard"
+    app.kubernetes.io/part-of: "banking-observability"
 data:
   jvm-micrometer.json: |-
     {
@@ -60,7 +60,10 @@ data:
             "type": "dashboard"
           },
           {
-            "datasource": "Prometheus",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
             "enable": true,
             "expr": "resets(process_uptime_seconds{application=\"$application\", instance=\"$instance\"}[1m]) > 0",
             "iconColor": "rgba(255, 96, 96, 1)",
@@ -95,7 +98,10 @@ data:
                 "rgba(237, 129, 40, 0.89)",
                 "rgba(50, 172, 45, 0.97)"
               ],
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "decimals": 1,
               "editable": true,
               "error": false,
@@ -178,7 +184,10 @@ data:
                 "rgba(237, 129, 40, 0.89)",
                 "rgba(50, 172, 45, 0.97)"
               ],
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "decimals": null,
               "editable": true,
               "error": false,
@@ -261,7 +270,10 @@ data:
                 "rgba(237, 129, 40, 0.89)",
                 "rgba(245, 54, 54, 0.9)"
               ],
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "decimals": 2,
               "editable": true,
               "error": false,
@@ -341,7 +353,10 @@ data:
                 "rgba(237, 129, 40, 0.89)",
                 "rgba(245, 54, 54, 0.9)"
               ],
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "decimals": 2,
               "editable": true,
               "error": false,
@@ -439,7 +454,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 111,
               "legend": {
@@ -518,7 +536,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 112,
               "legend": {
@@ -594,7 +615,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 113,
               "legend": {
@@ -678,7 +702,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "description": "",
               "fill": 1,
               "id": 119,
@@ -808,7 +835,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -918,7 +948,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1029,7 +1062,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1140,7 +1176,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1268,7 +1307,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1380,7 +1422,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1482,7 +1527,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1610,7 +1658,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 124,
               "legend": {
@@ -1687,7 +1738,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "description": "The percent of time spent on Garbage Collection over all CPUs assigned to the JVM process.",
               "fill": 1,
               "id": 138,
@@ -1770,7 +1824,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1881,7 +1938,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -1999,7 +2059,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -2133,7 +2196,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -2267,7 +2333,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 98,
               "legend": {
@@ -2343,7 +2412,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 101,
               "legend": {
@@ -2429,7 +2501,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 99,
               "legend": {
@@ -2525,7 +2600,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -2619,7 +2697,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "editable": true,
               "error": false,
               "fill": 1,
@@ -2728,7 +2809,10 @@ data:
               "bars": false,
               "dashLength": 10,
               "dashes": false,
-              "datasource": "Prometheus",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
               "fill": 1,
               "id": 131,
               "legend": {
@@ -2842,7 +2926,10 @@ data:
           {
             "allValue": null,
             "current": {},
-            "datasource": "Prometheus",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
             "hide": 0,
             "includeAll": false,
             "label": "Application",
@@ -2863,7 +2950,10 @@ data:
             "allFormat": "glob",
             "allValue": null,
             "current": {},
-            "datasource": "Prometheus",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
             "hide": 0,
             "includeAll": false,
             "label": "Instance",
@@ -2885,7 +2975,10 @@ data:
             "allFormat": "glob",
             "allValue": null,
             "current": {},
-            "datasource": "Prometheus",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
             "hide": 2,
             "includeAll": true,
             "label": "JVM Memory Pools Heap",
@@ -2907,7 +3000,10 @@ data:
             "allFormat": "glob",
             "allValue": null,
             "current": {},
-            "datasource": "Prometheus",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
             "hide": 2,
             "includeAll": true,
             "label": "JVM Memory Pools Non-Heap",
@@ -2929,7 +3025,10 @@ data:
             "allFormat": "glob",
             "allValue": null,
             "current": {},
-            "datasource": "Prometheus",
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
             "hide": 2,
             "includeAll": true,
             "label": "JVM Buffer Pools",
