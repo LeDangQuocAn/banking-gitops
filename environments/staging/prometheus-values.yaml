@@ -15,6 +15,7 @@ grafana:
     enabled: false
   # 1. CRITICAL: Disable the main chart's built-in automatic Prometheus datasource
   defaultDatasourceEnabled: false
+  forceDeployDatasources: true
 
   sidecar:
     dashboards:
@@ -22,8 +23,7 @@ grafana:
       label: grafana_dashboard
       labelValue: "1"
     datasources:
-      enabled: true
-      # Clear any non-standard keys here
+      enabled: false
       defaultDatasourceEnabled: false
 
   # 2. Explicitly provision BOTH datasources so there is zero ambiguity
