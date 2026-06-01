@@ -14,6 +14,9 @@ grafana:
   persistence:
     enabled: false
 
+  # 1. ALLOW the chart to build its native default Prometheus
+  defaultDatasourceEnabled: true
+
   sidecar:
     dashboards:
       enabled: true
@@ -21,16 +24,13 @@ grafana:
       labelValue: "1"
     datasources:
       enabled: true
-      # EXACT correct path to disable the chart's built-in Prometheus
-      defaultDatasourceEnabled: false
+      # 2. FORCE the native Prometheus to use the UID our dashboards expect
+      uid: "prometheus"
+      alertmanager:
+        enabled: false
 
   additionalDataSources:
-    - name: Prometheus
-      type: prometheus
-      uid: prometheus
-      url: http://staging-observability-prom-prometheus.monitoring.svc.cluster.local:9090
-      access: proxy
-      isDefault: true
+    # 3. ONLY keep Loki here. DO NOT add Prometheus.
     - name: Loki
       type: loki
       uid: loki
