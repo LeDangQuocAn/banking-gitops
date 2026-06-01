@@ -16,7 +16,7 @@ alertmanager:
     receivers:
       - name: 'slack-notifications'
         slack_configs:
-          - api_url: 'https://hooks.slack.com/services/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'
+          - api_url: 'https://hooks.slack.com/services/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'
             send_resolved: true
             title: '[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }}'
             text: >-
