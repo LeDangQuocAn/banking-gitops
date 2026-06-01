@@ -5,6 +5,7 @@ metadata:
   namespace: monitoring
   labels:
     release: staging-observability-prometheus
+    app.kubernetes.io/instance: staging-observability-prometheus
 spec:
   groups:
     - name: banking.rules
