@@ -2,5 +2,11 @@ loki:
   persistence:
     enabled: false
 
+grafana:
+  enabled: false
+  sidecar:
+    datasources:
+      enabled: false
+
 promtail:
   enabled: true
