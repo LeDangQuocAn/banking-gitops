@@ -162,7 +162,13 @@ probes:
       timeoutSeconds: 5
       failureThreshold: 24
 
-resources: {}
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
 
 autoscaling:
   enabled: true
