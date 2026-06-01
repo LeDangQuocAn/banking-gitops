@@ -1,11 +1,8 @@
 alertmanager:
   enabled: true
-  
-  # 1. Cấu hình Slack Webhook
   config:
     global:
       resolve_timeout: 5m
-      slack_api_url: 'https://hooks.slack.com/services/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'
     route:
       group_by: ['namespace', 'alertname']
       group_wait: 30s
@@ -19,7 +16,7 @@ alertmanager:
     receivers:
       - name: 'slack-notifications'
         slack_configs:
-          - channel: '#devops-alerts' # Đảm bảo channel này đã được tạo trên Slack
+          - api_url: 'https://hooks.slack.com/services/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'
             send_resolved: true
             title: '[{{ .Status | toUpper }}] {{ .GroupLabels.alertname }}'
             text: >-
