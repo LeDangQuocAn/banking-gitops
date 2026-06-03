@@ -6,52 +6,12 @@ replicaCount: 1
 
 container:
   port: 8083
-dependencies:
-  postgres:
-    enabled: true
-    host: ""
-    port: 5432
-    database: ""
-    databaseSecretRef:
-      name: "staging-rds-credentials"
-      key: "dbname"
-    username: "bankingadmin"
-    hostSecretRef:
-      name: "staging-rds-credentials"
-      key: "host"
-    passwordSecret:
-      name: "staging-rds-credentials"
-      key: "password"
-  rabbitmq:
-    enabled: true
-    host: "staging-infrastructure-rabbitmq.banking-infra.svc.cluster.local"
-    port: 5672
-    username: "user"
-    passwordSecret:
-      name: "infra-staging-rabbitmq"
-      key: "rabbitmq-password"
-  redis:
-    enabled: true
-    host: ""
-    port: 6379
-    database: 1
-    hostSecretRef:
-      name: "staging-elasticache-credentials"
-      key: "host"
-    passwordSecret:
-      name: "staging-elasticache-credentials"
-      key: "auth_token"
-  env:
-    - name: EUREKA_SERVER_URL
-      value: http://discovery-client-staging-banking-spring-boot.banking.svc.cluster.local:8761/eureka
-    - name: EUREKA_HOST
-      value: "discovery-client-staging-banking-spring-boot.banking.svc.cluster.local"
-    - name: EUREKA_PORT
-      value: "8761"
-    - name: USER_SERVICE_HOST
-      value: user-staging-banking-spring-boot
-    - name: BANK_SERVICE_HOST
-      value: bank-staging-banking-spring-boot
+
+extraEnv:
+  - name: USER_SERVICE_HOST
+    value: user-staging-banking-spring-boot
+  - name: BANK_SERVICE_HOST
+    value: bank-staging-banking-spring-boot
 
 service:
   port: 8083

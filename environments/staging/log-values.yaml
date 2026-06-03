@@ -6,37 +6,55 @@ replicaCount: 1
 
 container:
   port: 8086
-dependencies:
-  mongodb:
-    enabled: true
-    host: ""
-    port: 27017
-    database: ""
-    databaseSecretRef:
-      name: "staging-docdb-credentials"
-      key: "dbname"
-    username: "docdbadmin"
-    hostSecretRef:
-      name: "staging-docdb-credentials"
-      key: "host"
-    passwordSecret:
-      name: "staging-docdb-credentials"
-      key: "password"
-  rabbitmq:
-    enabled: true
-    host: "staging-infrastructure-rabbitmq.banking-infra.svc.cluster.local"
-    port: 5672
-    username: "user"
-    passwordSecret:
-      name: "infra-staging-rabbitmq"
-      key: "rabbitmq-password"
-  env:
-    - name: EUREKA_SERVER_URL
-      value: http://discovery-client-staging-banking-spring-boot.banking.svc.cluster.local:8761/eureka
-    - name: EUREKA_HOST
-      value: "discovery-client-staging-banking-spring-boot.banking.svc.cluster.local"
-    - name: EUREKA_PORT
-      value: "8761"
+
+initContainers:
+  - name: mongodb-ca-bundle
+    image: curlimages/curl:8.7.1
+    command:
+      - sh
+      - -c
+      - |
+        set -euo pipefail
+        curl -fsSL --retry 5 --retry-delay 2 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem -o /bundle/global-bundle.pem
+    volumeMounts:
+      - name: mongodb-ca-bundle
+        mountPath: /bundle
+
+extraEnv:
+  - name: MONGODB_HOST
+    valueFrom:
+      secretKeyRef:
+        name: staging-docdb-credentials
+        key: host
+  - name: MONGODB_PORT
+    value: "27017"
+  - name: MONGODB_DB
+    valueFrom:
+      secretKeyRef:
+        name: staging-docdb-credentials
+        key: dbname
+  - name: MONGODB_USER
+    value: docdbadmin
+  - name: MONGODB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: staging-docdb-credentials
+        key: password
+  - name: SPRING_DATA_MONGODB_SSL_ENABLED
+    value: "true"
+  - name: SPRING_DATA_MONGODB_SSL_BUNDLE
+    value: docdb
+  - name: SPRING_SSL_BUNDLE_PEM_DOCDB_TRUSTSTORE_CERTIFICATE
+    value: file:/etc/docdb-ca/global-bundle.pem
+
+volumeMounts:
+  - name: mongodb-ca-bundle
+    mountPath: /etc/docdb-ca
+    readOnly: true
+
+volumes:
+  - name: mongodb-ca-bundle
+    emptyDir: {}
 
 service:
   port: 8086

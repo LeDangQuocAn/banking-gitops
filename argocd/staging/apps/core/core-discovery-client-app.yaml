@@ -18,6 +18,7 @@ spec:
     helm:
       releaseName: discovery-client-staging
       valueFiles:
+        - ../../environments/staging/common-values.yaml
         - ../../environments/staging/discovery-client-values.yaml
   syncPolicy:
     automated:

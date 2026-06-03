@@ -22,62 +22,15 @@ podLabels: {}
 podSecurityContext: {}
 securityContext: {}
 
+initContainers: []
+
 container:
   portName: http
   port: 8080
-  env: []
-  envFrom: []
 
-dependencies:
-  postgres:
-    enabled: false
-    host: ""
-    port: 5432
-    database: ""
-    databaseSecretRef:
-      name: ""
-      key: "dbname"
-    username: ""
-    hostSecretRef:
-      name: ""
-      key: "host"
-    passwordSecret:
-      name: ""
-      key: ""
-  rabbitmq:
-    enabled: false
-    host: ""
-    port: 5672
-    username: ""
-    passwordSecret:
-      name: ""
-      key: ""
-  redis:
-    enabled: false
-    host: ""
-    port: 6379
-    database: 0
-    hostSecretRef:
-      name: ""
-      key: "host"
-    passwordSecret:
-      name: ""
-      key: ""
-  mongodb:
-    enabled: false
-    host: ""
-    port: 27017
-    database: ""
-    databaseSecretRef:
-      name: ""
-      key: "dbname"
-    username: ""
-    hostSecretRef:
-      name: ""
-      key: "host"
-    passwordSecret:
-      name: ""
-      key: ""
+env: []
+extraEnv: []
+envFrom: []
 
 service:
   type: ClusterIP

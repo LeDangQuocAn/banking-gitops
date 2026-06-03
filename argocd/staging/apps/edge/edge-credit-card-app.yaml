@@ -18,6 +18,7 @@ spec:
     helm:
       releaseName: credit-card-staging
       valueFiles:
+        - ../../environments/staging/common-values.yaml
         - ../../environments/staging/credit-card-values.yaml
   syncPolicy:
     automated:

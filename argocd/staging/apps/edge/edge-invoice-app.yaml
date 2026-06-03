@@ -18,6 +18,7 @@ spec:
     helm:
       releaseName: invoice-staging
       valueFiles:
+        - ../../environments/staging/common-values.yaml
         - ../../environments/staging/invoice-values.yaml
   syncPolicy:
     automated:

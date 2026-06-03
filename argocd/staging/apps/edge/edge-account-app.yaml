@@ -18,6 +18,7 @@ spec:
     helm:
       releaseName: account-staging
       valueFiles:
+        - ../../environments/staging/common-values.yaml
         - ../../environments/staging/account-values.yaml
   syncPolicy:
     automated:

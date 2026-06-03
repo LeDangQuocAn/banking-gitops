@@ -18,6 +18,7 @@ spec:
     helm:
       releaseName: gateway-staging
       valueFiles:
+        - ../../environments/staging/common-values.yaml
         - ../../environments/staging/gateway-values.yaml
   syncPolicy:
     automated:
