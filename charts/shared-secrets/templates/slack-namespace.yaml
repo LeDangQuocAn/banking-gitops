@@ -1,0 +1,11 @@
+{{- if .Values.externalSecrets.slackWebhook.enabled }}
+{{- $targetNamespace := .Values.externalSecrets.slackWebhook.targetNamespace | default .Values.namespace }}
+{{- if ne $targetNamespace .Values.namespace }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $targetNamespace }}
+  labels:
+    app.kubernetes.io/managed-by: argocd
+{{- end }}
+{{- end }}
