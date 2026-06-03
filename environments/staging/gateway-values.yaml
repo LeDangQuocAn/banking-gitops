@@ -19,7 +19,6 @@ ingress:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
   hosts:
-    - host: gateway.staging.banking.local
       paths:
         - path: /
           pathType: Prefix
