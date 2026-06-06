@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: banking-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: banking-platform
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    platform.banking.io/environment: prod
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  sourceRepos:
+    - https://github.com/LeDangQuocAn/banking-gitops
+    - https://github.com/LeDangQuocAn/banking-gitops.git
+    - ssh://git@github.com/LeDangQuocAn/banking-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: banking-prod
+    - server: https://kubernetes.default.svc
+      namespace: banking-infra-prod
+    - server: https://kubernetes.default.svc
+      namespace: argocd
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'

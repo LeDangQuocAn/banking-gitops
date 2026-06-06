@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: banking-prod-edge-account
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    platform.banking.io/layer: edge
+spec:
+  project: banking-prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: banking-prod
+  source:
+    repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+    targetRevision: production
+    path: charts/banking-spring-boot
+    helm:
+      releaseName: account-prod
+      valueFiles:
+        - ../../environments/prod/common-values.yaml
+        - ../../environments/prod/account-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

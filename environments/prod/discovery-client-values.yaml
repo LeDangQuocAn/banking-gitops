@@ -12,11 +12,11 @@ service:
   targetPort: http
 
 ingress:
-  enabled: true
-  className: nginx
+  enabled: false
+  className: "alb"
   annotations: {}
   hosts:
-    - host: discovery.banking.example.com
+    - host: ""
       paths:
         - path: /
           pathType: Prefix

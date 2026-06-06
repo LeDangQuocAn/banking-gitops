@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: banking-prod-infra-infrastructure
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+    platform.banking.io/layer: infra
+spec:
+  project: banking-prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: banking-infra-prod
+  source:
+    repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+    targetRevision: production
+    path: charts/banking-infrastructure
+    helm:
+      releaseName: infrastructure-prod
+      valueFiles:
+        - ../../environments/prod/infra-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

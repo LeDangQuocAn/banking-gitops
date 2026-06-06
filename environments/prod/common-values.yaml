@@ -1,0 +1,109 @@
+env:
+  - name: POSTGRES_HOST
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-rds-secret
+        key: host
+  - name: POSTGRES_PORT
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-rds-secret
+        key: port
+  - name: POSTGRES_DB
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-rds-secret
+        key: dbname
+  - name: POSTGRES_USER
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-rds-secret
+        key: username
+  - name: POSTGRES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-rds-secret
+        key: password
+  - name: RABBITMQ_HOST
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-mq-secret
+        key: host
+  - name: RABBITMQ_PORT
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-mq-secret
+        key: port
+  - name: RABBITMQ_USER
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-mq-secret
+        key: username
+  - name: RABBITMQ_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-mq-secret
+        key: password
+  - name: REDIS_HOST
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-redis-secret
+        key: host
+  - name: REDIS_PORT
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-redis-secret
+        key: port
+  - name: REDIS_DB
+    value: "1"
+  - name: REDIS_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-redis-secret
+        key: auth_token
+  - name: SPRING_DATA_REDIS_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-redis-secret
+        key: auth_token
+  - name: SPRING_DATA_REDIS_SSL_ENABLED
+    value: "true"
+  - name: MONGODB_HOST
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-docdb-secret
+        key: host
+  - name: MONGODB_PORT
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-docdb-secret
+        key: port
+  - name: MONGODB_DB
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-docdb-secret
+        key: dbname
+  - name: MONGODB_USER
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-docdb-secret
+        key: username
+  - name: MONGODB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: banking-prod-docdb-secret
+        key: password
+  - name: SPRING_DATA_MONGODB_SSL_ENABLED
+    value: "true"
+  - name: EUREKA_SERVER_URL
+    value: http://discovery-client-prod-banking-spring-boot.banking-prod.svc.cluster.local:8761/eureka
+  - name: EUREKA_HOST
+    value: discovery-client-prod-banking-spring-boot.banking-prod.svc.cluster.local
+  - name: EUREKA_PORT
+    value: "8761"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
