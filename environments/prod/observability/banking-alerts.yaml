@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: banking-microservices-alerts
+  namespace: monitoring
+  labels:
+    release: prod-observability-prometheus
+    app.kubernetes.io/instance: prod-observability-prometheus
+spec:
+  groups:
+    - name: banking.rules
+      rules:
+        - alert: BankingServiceDown
+          expr: up{namespace="banking-prod"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Service {{ $labels.service }} is down
+            description: The service {{ $labels.service }} in namespace {{ $labels.namespace }} has been down for more than 1 minute.

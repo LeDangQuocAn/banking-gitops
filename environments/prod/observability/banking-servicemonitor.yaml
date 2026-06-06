@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: banking-microservices
+  namespace: monitoring
+  labels:
+    release: prod-observability-prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: banking-spring-boot
+  namespaceSelector:
+    matchNames:
+      - banking-prod
+  endpoints:
+    - port: http
+      path: /actuator/prometheus
+      interval: 15s

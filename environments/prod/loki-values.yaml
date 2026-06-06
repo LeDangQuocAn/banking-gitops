@@ -1,0 +1,16 @@
+loki:
+  persistence:
+    enabled: true
+    storageClassName: gp3
+    accessModes:
+      - ReadWriteOnce
+    size: 30Gi
+
+grafana:
+  enabled: false
+  sidecar:
+    datasources:
+      enabled: false
+
+promtail:
+  enabled: true

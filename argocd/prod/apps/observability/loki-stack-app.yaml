@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-observability-loki
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+    platform.banking.io/layer: observability
+spec:
+  project: banking-prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: loki-stack
+      targetRevision: "2.10.1"
+      helm:
+        releaseName: loki-stack
+        valueFiles:
+          - $values/environments/prod/loki-values.yaml
+    - repoURL: https://github.com/LeDangQuocAn/banking-gitops.git
+      targetRevision: production
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
