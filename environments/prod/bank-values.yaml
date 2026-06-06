@@ -1,6 +1,6 @@
 image:
-  repository: ghcr.io/your-org/bank-service
-  tag: "1.0.0"
+  repository: 141571819416.dkr.ecr.ap-southeast-1.amazonaws.com/banking-microservices-prod-bank-service
+  tag: "d3b1e8674d560e3d0146dfa500930045f193904e"
 
 replicaCount: 2
 
