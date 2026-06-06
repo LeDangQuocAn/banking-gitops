@@ -5,10 +5,10 @@ image:
 replicaCount: 2
 
 container:
-  port: 8083
+  port: 8082
 
 service:
-  port: 8083
+  port: 8082
   targetPort: http
 
 ingress:

@@ -5,7 +5,7 @@ image:
 replicaCount: 2
 
 container:
-  port: 8089
+  port: 8086
 
 initContainers:
   - name: mongodb-ca-bundle
@@ -36,7 +36,7 @@ volumes:
     emptyDir: {}
 
 service:
-  port: 8089
+  port: 8086
   targetPort: http
 
 ingress:
