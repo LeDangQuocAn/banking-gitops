@@ -1,6 +1,6 @@
 image:
   repository: 141571819416.dkr.ecr.ap-southeast-1.amazonaws.com/banking-microservices-staging-discovery-client-service
-  tag: "adbb96125ae94d5d078fac10e5b86ceee6f956f7"
+  tag: "7473a08fa120b29ccad326b501e08b91e3cbfd03"
 
 replicaCount: 1
 
