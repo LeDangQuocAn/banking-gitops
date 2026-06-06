@@ -1,6 +1,6 @@
 image:
   repository: 141571819416.dkr.ecr.ap-southeast-1.amazonaws.com/banking-microservices-staging-log-service
-  tag: "0fd80aa0a6549a11015fb3fd05ff7c790f2d2fd9"
+  tag: "2875c5e1117683928222fb0f13cdd0d3bdda81de"
 
 replicaCount: 1
 
