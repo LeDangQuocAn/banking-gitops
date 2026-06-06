@@ -46,6 +46,8 @@ env:
       secretKeyRef:
         name: banking-prod-mq-secret
         key: password
+  - name: SPRING_RABBITMQ_SSL_ENABLED
+    value: "true"
   - name: REDIS_HOST
     valueFrom:
       secretKeyRef:
