@@ -1,6 +1,6 @@
 image:
   repository: 141571819416.dkr.ecr.ap-southeast-1.amazonaws.com/banking-microservices-staging-api-gateway-service
-  tag: "ad3a921fae7e728168c3a17af5062c2b5a7966bb"
+  tag: "adbb96125ae94d5d078fac10e5b86ceee6f956f7"
 
 replicaCount: 1
 
