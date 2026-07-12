@@ -1,105 +1,49 @@
-# Banking Microservices GitOps
+# 🐙 GitOps & Observability for Banking Microservices
 
-This repository stores Kubernetes deployment configuration for the banking microservices platform.
-It is organized around reusable Helm charts and per-environment values overlays.
+![ArgoCD](https://img.shields.io/badge/ArgoCD-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+![HashiCorp Vault](https://img.shields.io/badge/Vault-000000?style=for-the-badge&logo=Vault&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white)
 
-## Repository Structure
+This repository serves as the **Single Source of Truth (SSoT)** for deploying and managing the Banking Microservices on Amazon EKS. It implements the GitOps methodology using Argo CD, HashiCorp Vault for secret management, and a robust Observability stack.
+
+The application source code and Infrastructure-as-Code (Terraform) can be found in the companion repository: [Banking-Microservices](https://github.com/LeDangQuocAn/Banking-Microservices).
+
+## 🌟 Key Features
+
+- **Argo CD App-of-Apps:** Automated deployment orchestration of 8 microservices, infrastructure components, and monitoring tools.
+- **Sync-Waves Orchestration:** Precisely coordinated startup order (Wave -1: Observability/Secrets -> Wave 0: Infra -> Wave 1: Core -> Wave 2: Edge) to prevent `CrashLoopBackOff` errors.
+- **Zero Long-lived Credentials:**
+  - **HashiCorp Vault:** Integrated with **AWS KMS Auto-unseal**.
+  - **External Secrets Operator (ESO):** Dynamic Kubernetes Secret injection.
+  - **IRSA (IAM Roles for Service Accounts):** Strict least-privilege pod-level AWS access via OIDC token exchange.
+- **Proactive Observability (PLG Stack):**
+  - Automated target scraping via `ServiceMonitor`.
+  - **Dashboard-as-Code:** Grafana dashboards provisioned dynamically via labeled `ConfigMaps`.
+  - Real-time Slack alerts routed through Prometheus Alertmanager.
+- **FinOps Optimized:** Utilizes `emptyDir` and dynamic PVCs for testing environments to eliminate orphaned EBS volumes upon teardown.
+
+## 📂 Repository Structure
 
 ```text
-banking-gitops/
+├── argocd/                  # ArgoCD App-of-Apps root configurations
+│   ├── staging/
+│   └── prod/
 ├── charts/
-│   ├── banking-spring-boot/      # Reusable app chart (deploy each service as a release)
-│   └── banking-infrastructure/   # Shared infra chart (Postgres/RabbitMQ/Mongo/Redis)
-└── environments/
-		├── staging/
-		│   ├── infra-values.yaml
-		│   ├── account-values.yaml
-		│   ├── gateway-values.yaml
-		│   ├── bank-values.yaml
-		│   ├── credit-card-values.yaml
-		│   ├── discovery-client-values.yaml
-		│   ├── invoice-values.yaml
-		│   ├── log-values.yaml
-		│   └── user-values.yaml
-		└── prod/
-				├── infra-values.yaml
-				├── account-values.yaml
-				├── gateway-values.yaml
-				├── bank-values.yaml
-				├── credit-card-values.yaml
-				├── discovery-client-values.yaml
-				├── invoice-values.yaml
-				├── log-values.yaml
-				└── user-values.yaml
+│   └── banking-spring-boot/ # DRY Common Helm Chart for all microservices
+└── environments/            # Environment-specific value overrides
+    ├── staging/
+    │   ├── account-values.yaml
+    │   ├── observability/   # ServiceMonitors, Grafana Dashboards as Code
+    │   └── ...
+    └── prod/
 ```
 
-## Deployment Model
+## 🔄 Deployment Flow
 
-- One reusable Helm chart (`banking-spring-boot`) is installed 8 times, one release per service.
-- `staging` can run in-cluster infrastructure via `banking-infrastructure`.
-- `prod` disables in-cluster databases and points applications to external managed services.
-- Ingress is the default north-south entry mode.
+Continuous Integration (GitHub Actions) from the main repo pushes a new Docker image to Amazon ECR.
 
-## Services
+A CI bot automatically updates the respective `values.yaml` in this repository with the new image tag via direct commit for staging or pull request for production.
 
-- account-service
-- api-gateway-service
-- bank-service
-- credit-card-service
-- discovery-client-service
-- invoice-service
-- log-service
-- user-service
-
-## Helm Commands
-
-### 1) Render and lint charts
-
-```bash
-helm lint charts/banking-spring-boot
-helm lint charts/banking-infrastructure
-```
-
-```bash
-helm template account-staging charts/banking-spring-boot -f environments/staging/account-values.yaml
-helm template account-prod charts/banking-spring-boot -f environments/prod/account-values.yaml
-helm template infra-staging charts/banking-infrastructure -f environments/staging/infra-values.yaml
-helm template infra-prod charts/banking-infrastructure -f environments/prod/infra-values.yaml
-```
-
-### 2) Deploy staging
-
-```bash
-kubectl create namespace banking-staging --dry-run=client -o yaml | kubectl apply -f -
-
-helm dependency update charts/banking-infrastructure
-helm upgrade --install infra-staging charts/banking-infrastructure \
-	-n banking-staging \
-	-f environments/staging/infra-values.yaml
-
-helm upgrade --install account-staging charts/banking-spring-boot \
-	-n banking-staging \
-	-f environments/staging/account-values.yaml
-
-helm upgrade --install gateway-staging charts/banking-spring-boot \
-	-n banking-staging \
-	-f environments/staging/gateway-values.yaml
-```
-
-Repeat the same release pattern for `bank`, `credit-card`, `discovery-client`, `invoice`, `log`, and `user`.
-
-### 3) Deploy prod
-
-```bash
-kubectl create namespace banking-prod --dry-run=client -o yaml | kubectl apply -f -
-
-helm upgrade --install account-prod charts/banking-spring-boot \
-	-n banking-prod \
-	-f environments/prod/account-values.yaml
-
-helm upgrade --install gateway-prod charts/banking-spring-boot \
-	-n banking-prod \
-	-f environments/prod/gateway-values.yaml
-```
-
-Prod infrastructure chart should usually not be installed because `environments/prod/infra-values.yaml` is configured for external services.
+Argo CD detects the state drift and automatically pulls the changes to synchronize the EKS cluster to the desired state.
